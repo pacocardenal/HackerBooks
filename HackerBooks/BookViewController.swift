@@ -11,6 +11,9 @@ import UIKit
 class BookViewController: UIViewController {
 
     @IBOutlet weak var bookCoverImageView: UIImageView!
+    @IBOutlet weak var bookTitleLabel: UILabel!
+    @IBOutlet weak var bookAuthorsLabel: UILabel!
+    @IBOutlet weak var bookTagsLabel: UILabel!
     
     // MARK: - Properties
     var model: Book
@@ -33,11 +36,17 @@ class BookViewController: UIViewController {
     // MARK: - Actions
     @IBAction func readBook(_ sender: Any) {
         print("Read book: \(model.urlPdf)")
+        
+        let pdfVC = WebViewController(model: model)
+        navigationController?.pushViewController(pdfVC, animated: true)
     }
     
     // MARK: - Utils
     func syncViewWithModel() {
         self.bookCoverImageView.image = UIImage(data: try! Data(contentsOf: model.urlImage))
+        self.bookTitleLabel.text = model.title
+        self.bookAuthorsLabel.text = model.authors?.joined(separator: ", ")
+        self.bookTagsLabel.text = model.tags?.joined(separator: ", ")
     }
 
 }

@@ -25,6 +25,8 @@
 		E3ADBD1B1E433D9800D5BBCA /* AsyncData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD1A1E433D9800D5BBCA /* AsyncData.swift */; };
 		E3ADBD1E1E43434D00D5BBCA /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD1C1E43434D00D5BBCA /* BookViewController.swift */; };
 		E3ADBD1F1E43434D00D5BBCA /* BookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD1D1E43434D00D5BBCA /* BookViewController.xib */; };
+		E3ADBD221E4349E400D5BBCA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD201E4349E400D5BBCA /* WebViewController.swift */; };
+		E3ADBD231E4349E400D5BBCA /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD211E4349E400D5BBCA /* WebViewController.xib */; };
 		E3DC365A1E4299E100D03500 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC36591E4299E100D03500 /* MultiDictionary.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +51,8 @@
 		E3ADBD1A1E433D9800D5BBCA /* AsyncData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncData.swift; sourceTree = "<group>"; };
 		E3ADBD1C1E43434D00D5BBCA /* BookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
 		E3ADBD1D1E43434D00D5BBCA /* BookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookViewController.xib; sourceTree = "<group>"; };
+		E3ADBD201E4349E400D5BBCA /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		E3ADBD211E4349E400D5BBCA /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		E3DC36591E4299E100D03500 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +146,8 @@
 				E3ADBD151E43315000D5BBCA /* LibraryTableViewCell.xib */,
 				E3ADBD1C1E43434D00D5BBCA /* BookViewController.swift */,
 				E3ADBD1D1E43434D00D5BBCA /* BookViewController.xib */,
+				E3ADBD201E4349E400D5BBCA /* WebViewController.swift */,
+				E3ADBD211E4349E400D5BBCA /* WebViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -208,6 +214,7 @@
 				5CBF09C71E3F908900381586 /* books_readable.json in Resources */,
 				5CA8CB5A1E38AB63004748BE /* LaunchScreen.storyboard in Resources */,
 				E3ADBD1F1E43434D00D5BBCA /* BookViewController.xib in Resources */,
+				E3ADBD231E4349E400D5BBCA /* WebViewController.xib in Resources */,
 				E3ADBD171E43315000D5BBCA /* LibraryTableViewCell.xib in Resources */,
 				5CA8CB571E38AB63004748BE /* Assets.xcassets in Resources */,
 				E3ADBD191E4332F800D5BBCA /* defaultBookCover.png in Resources */,
@@ -233,6 +240,7 @@
 				E3DC365A1E4299E100D03500 /* MultiDictionary.swift in Sources */,
 				E3ADBD1E1E43434D00D5BBCA /* BookViewController.swift in Sources */,
 				E3ADBD1B1E433D9800D5BBCA /* AsyncData.swift in Sources */,
+				E3ADBD221E4349E400D5BBCA /* WebViewController.swift in Sources */,
 				5C08BE751E3F72F0008E78CC /* Library.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,6 +26,12 @@ class LibraryTableViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(UINib.init(nibName: "LibraryTableViewCell", bundle: nil), forCellReuseIdentifier: "LibraryTableViewCell")
+    }
+    
     // MARK: - Table view delegate
     
 
@@ -43,22 +49,31 @@ class LibraryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return model.tagName(section)
+        return model.tagName(section).capitalized
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellId = "BookCell"
+        //let cellId = "BookCell"
+        let cellId = "LibraryTableViewCell"
         let book = model.book(atIndex: indexPath.row, forTag: getTag(forSection: indexPath.section))
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
         
-        if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: cellId)
+//        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! LibraryTableViewCell
+        
+//        if (cell == nil) {
+//            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: cellId)
+//        }
+        
+        //cell?.textLabel?.text = book.title
+        cell.bookTitleLabel.text = book.title
+        cell.bookAuthorsLabel.text = book.authors?.joined(separator: ", ")
+        let data = try? Data(contentsOf: book.urlImage) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        if let imageData = data {
+            cell.bookCoverImageView.image = UIImage(data: imageData)
         }
         
-        cell?.textLabel?.text = book.title
-        
-        return cell!
+        return cell
         
     }
     

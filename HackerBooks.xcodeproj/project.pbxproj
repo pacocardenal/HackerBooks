@@ -19,6 +19,9 @@
 		5CBF09C71E3F908900381586 /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CBF09C61E3F908800381586 /* books_readable.json */; };
 		5CBF09CC1E3F95FB00381586 /* LibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF09CB1E3F95FB00381586 /* LibraryTableViewController.swift */; };
 		5CBF09CE1E3F981400381586 /* TagName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF09CD1E3F981400381586 /* TagName.swift */; };
+		E3ADBD161E43315000D5BBCA /* LibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD141E43315000D5BBCA /* LibraryTableViewCell.swift */; };
+		E3ADBD171E43315000D5BBCA /* LibraryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD151E43315000D5BBCA /* LibraryTableViewCell.xib */; };
+		E3ADBD191E4332F800D5BBCA /* defaultBookCover.png in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD181E4332F800D5BBCA /* defaultBookCover.png */; };
 		E3DC365A1E4299E100D03500 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC36591E4299E100D03500 /* MultiDictionary.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +40,9 @@
 		5CBF09C61E3F908800381586 /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
 		5CBF09CB1E3F95FB00381586 /* LibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewController.swift; sourceTree = "<group>"; };
 		5CBF09CD1E3F981400381586 /* TagName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagName.swift; sourceTree = "<group>"; };
+		E3ADBD141E43315000D5BBCA /* LibraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewCell.swift; sourceTree = "<group>"; };
+		E3ADBD151E43315000D5BBCA /* LibraryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryTableViewCell.xib; sourceTree = "<group>"; };
+		E3ADBD181E4332F800D5BBCA /* defaultBookCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultBookCover.png; sourceTree = "<group>"; };
 		E3DC36591E4299E100D03500 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +113,7 @@
 		5CBF09C21E3F901700381586 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E3ADBD181E4332F800D5BBCA /* defaultBookCover.png */,
 				5CBF09C31E3F902700381586 /* JSON */,
 			);
 			name = Resources;
@@ -124,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				5CBF09CB1E3F95FB00381586 /* LibraryTableViewController.swift */,
+				E3ADBD141E43315000D5BBCA /* LibraryTableViewCell.swift */,
+				E3ADBD151E43315000D5BBCA /* LibraryTableViewCell.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -189,7 +198,9 @@
 			files = (
 				5CBF09C71E3F908900381586 /* books_readable.json in Resources */,
 				5CA8CB5A1E38AB63004748BE /* LaunchScreen.storyboard in Resources */,
+				E3ADBD171E43315000D5BBCA /* LibraryTableViewCell.xib in Resources */,
 				5CA8CB571E38AB63004748BE /* Assets.xcassets in Resources */,
+				E3ADBD191E4332F800D5BBCA /* defaultBookCover.png in Resources */,
 				5CA8CB551E38AB63004748BE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,6 +219,7 @@
 				5C525A371E3B52B0009D858E /* JSONProcessing.swift in Sources */,
 				5CBF09CE1E3F981400381586 /* TagName.swift in Sources */,
 				5CA8CB631E38ACDB004748BE /* Book.swift in Sources */,
+				E3ADBD161E43315000D5BBCA /* LibraryTableViewCell.swift in Sources */,
 				E3DC365A1E4299E100D03500 /* MultiDictionary.swift in Sources */,
 				5C08BE751E3F72F0008E78CC /* Library.swift in Sources */,
 			);

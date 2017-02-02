@@ -22,6 +22,9 @@
 		E3ADBD161E43315000D5BBCA /* LibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD141E43315000D5BBCA /* LibraryTableViewCell.swift */; };
 		E3ADBD171E43315000D5BBCA /* LibraryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD151E43315000D5BBCA /* LibraryTableViewCell.xib */; };
 		E3ADBD191E4332F800D5BBCA /* defaultBookCover.png in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD181E4332F800D5BBCA /* defaultBookCover.png */; };
+		E3ADBD1B1E433D9800D5BBCA /* AsyncData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD1A1E433D9800D5BBCA /* AsyncData.swift */; };
+		E3ADBD1E1E43434D00D5BBCA /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD1C1E43434D00D5BBCA /* BookViewController.swift */; };
+		E3ADBD1F1E43434D00D5BBCA /* BookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD1D1E43434D00D5BBCA /* BookViewController.xib */; };
 		E3DC365A1E4299E100D03500 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC36591E4299E100D03500 /* MultiDictionary.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +46,9 @@
 		E3ADBD141E43315000D5BBCA /* LibraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewCell.swift; sourceTree = "<group>"; };
 		E3ADBD151E43315000D5BBCA /* LibraryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryTableViewCell.xib; sourceTree = "<group>"; };
 		E3ADBD181E4332F800D5BBCA /* defaultBookCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultBookCover.png; sourceTree = "<group>"; };
+		E3ADBD1A1E433D9800D5BBCA /* AsyncData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncData.swift; sourceTree = "<group>"; };
+		E3ADBD1C1E43434D00D5BBCA /* BookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		E3ADBD1D1E43434D00D5BBCA /* BookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookViewController.xib; sourceTree = "<group>"; };
 		E3DC36591E4299E100D03500 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +112,7 @@
 				5C08BE741E3F72F0008E78CC /* Library.swift */,
 				5CBF09CD1E3F981400381586 /* TagName.swift */,
 				E3DC36591E4299E100D03500 /* MultiDictionary.swift */,
+				E3ADBD1A1E433D9800D5BBCA /* AsyncData.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -133,6 +140,8 @@
 				5CBF09CB1E3F95FB00381586 /* LibraryTableViewController.swift */,
 				E3ADBD141E43315000D5BBCA /* LibraryTableViewCell.swift */,
 				E3ADBD151E43315000D5BBCA /* LibraryTableViewCell.xib */,
+				E3ADBD1C1E43434D00D5BBCA /* BookViewController.swift */,
+				E3ADBD1D1E43434D00D5BBCA /* BookViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -198,6 +207,7 @@
 			files = (
 				5CBF09C71E3F908900381586 /* books_readable.json in Resources */,
 				5CA8CB5A1E38AB63004748BE /* LaunchScreen.storyboard in Resources */,
+				E3ADBD1F1E43434D00D5BBCA /* BookViewController.xib in Resources */,
 				E3ADBD171E43315000D5BBCA /* LibraryTableViewCell.xib in Resources */,
 				5CA8CB571E38AB63004748BE /* Assets.xcassets in Resources */,
 				E3ADBD191E4332F800D5BBCA /* defaultBookCover.png in Resources */,
@@ -221,6 +231,8 @@
 				5CA8CB631E38ACDB004748BE /* Book.swift in Sources */,
 				E3ADBD161E43315000D5BBCA /* LibraryTableViewCell.swift in Sources */,
 				E3DC365A1E4299E100D03500 /* MultiDictionary.swift in Sources */,
+				E3ADBD1E1E43434D00D5BBCA /* BookViewController.swift in Sources */,
+				E3ADBD1B1E433D9800D5BBCA /* AsyncData.swift in Sources */,
 				5C08BE751E3F72F0008E78CC /* Library.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,7 +33,16 @@ class LibraryTableViewController: UITableViewController {
     }
     
     // MARK: - Table view delegate
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let book = model.character(atIndex: indexPath.row, forAffiliation: getAffiliation(forSection: indexPath.section))
+        
+        let book = model.book(atIndex: indexPath.row, forTag: getTag(forSection: indexPath.section))
+        
+        //        let charVC = CharacterViewController(model: character)
+        //        self.navigationController?.pushViewController(charVC, animated: true)
+        let bookVC = BookViewController(model: book)
+        self.navigationController?.pushViewController(bookVC, animated: true)
+    }
 
     // MARK: - Table view data source
 

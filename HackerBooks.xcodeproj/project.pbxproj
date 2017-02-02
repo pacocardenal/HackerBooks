@@ -27,6 +27,8 @@
 		E3ADBD1F1E43434D00D5BBCA /* BookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD1D1E43434D00D5BBCA /* BookViewController.xib */; };
 		E3ADBD221E4349E400D5BBCA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD201E4349E400D5BBCA /* WebViewController.swift */; };
 		E3ADBD231E4349E400D5BBCA /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD211E4349E400D5BBCA /* WebViewController.xib */; };
+		E3ADBD261E43554600D5BBCA /* favFull.png in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD241E43554600D5BBCA /* favFull.png */; };
+		E3ADBD271E43554600D5BBCA /* favEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = E3ADBD251E43554600D5BBCA /* favEmpty.png */; };
 		E3DC365A1E4299E100D03500 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DC36591E4299E100D03500 /* MultiDictionary.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,8 @@
 		E3ADBD1D1E43434D00D5BBCA /* BookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookViewController.xib; sourceTree = "<group>"; };
 		E3ADBD201E4349E400D5BBCA /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		E3ADBD211E4349E400D5BBCA /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		E3ADBD241E43554600D5BBCA /* favFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favFull.png; sourceTree = "<group>"; };
+		E3ADBD251E43554600D5BBCA /* favEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favEmpty.png; sourceTree = "<group>"; };
 		E3DC36591E4299E100D03500 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				E3ADBD181E4332F800D5BBCA /* defaultBookCover.png */,
+				E3ADBD241E43554600D5BBCA /* favFull.png */,
+				E3ADBD251E43554600D5BBCA /* favEmpty.png */,
 				5CBF09C31E3F902700381586 /* JSON */,
 			);
 			name = Resources;
@@ -211,10 +217,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3ADBD261E43554600D5BBCA /* favFull.png in Resources */,
 				5CBF09C71E3F908900381586 /* books_readable.json in Resources */,
 				5CA8CB5A1E38AB63004748BE /* LaunchScreen.storyboard in Resources */,
 				E3ADBD1F1E43434D00D5BBCA /* BookViewController.xib in Resources */,
 				E3ADBD231E4349E400D5BBCA /* WebViewController.xib in Resources */,
+				E3ADBD271E43554600D5BBCA /* favEmpty.png in Resources */,
 				E3ADBD171E43315000D5BBCA /* LibraryTableViewCell.xib in Resources */,
 				5CA8CB571E38AB63004748BE /* Assets.xcassets in Resources */,
 				E3ADBD191E4332F800D5BBCA /* defaultBookCover.png in Resources */,

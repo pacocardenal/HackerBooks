@@ -39,6 +39,7 @@ class Library {
             var setBooks = Set<Book>()
             for aBook in books {
                 if (aBook.tags?.contains(aTag))! {
+                    aBook.favorite = checkFavoriteFromUserDefaults(book: aBook)
                     setBooks.insert(aBook)
                     // it exists, do something
                 }
@@ -95,7 +96,18 @@ class Library {
     func tagName(_ tagNumber : Int) -> String {
         var keysArray = Array(dict.keys)
         keysArray = keysArray.sorted()
-        return keysArray[tagNumber]
+        return keysArray[tagNumber - 1]
+    }
+    
+    func checkFavoriteFromUserDefaults(book: Book) -> Bool {
+        
+        let defaults = UserDefaults.standard
+        guard let array = defaults.stringArray(forKey: BookViewController.kKeyFavoriteUserDefaults) else {
+            return false
+        }
+        
+        return array.contains(String(book.hashValue))
+        
     }
     
 //    fileprivate func makeEmptyTags() -> BooksDictionary {

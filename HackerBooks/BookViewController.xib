@@ -16,6 +16,7 @@
                 <outlet property="bookCoverImageView" destination="G5s-s3-mdV" id="whf-Fn-rva"/>
                 <outlet property="bookTagsLabel" destination="hpy-5p-5bE" id="0Fa-Bv-IFf"/>
                 <outlet property="bookTitleLabel" destination="cej-eT-sYl" id="C4c-fK-N1K"/>
+                <outlet property="favoriteButton" destination="bPk-8S-sL0" id="wvh-Rs-0Um"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -62,11 +63,24 @@
                         </button>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPk-8S-sL0">
+                    <rect key="frame" x="315" y="72" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="AfN-LB-gbI"/>
+                        <constraint firstAttribute="height" constant="44" id="dB0-Ym-cYb"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="favEmpty.png"/>
+                    <connections>
+                        <action selector="markAsFavorite:" destination="-1" eventType="touchUpInside" id="NDy-Rf-rQO"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="dEm-E2-aMP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="56" id="JZ4-zv-Acx"/>
                 <constraint firstItem="dEm-E2-aMP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="O2f-yA-bVz"/>
+                <constraint firstItem="bPk-8S-sL0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="64" id="Yvd-UG-ahT"/>
+                <constraint firstAttribute="trailingMargin" secondItem="bPk-8S-sL0" secondAttribute="trailing" constant="8" id="axP-9g-s0Y"/>
                 <constraint firstAttribute="bottomMargin" secondItem="dEm-E2-aMP" secondAttribute="bottom" id="hbN-og-ZnZ"/>
                 <constraint firstItem="dEm-E2-aMP" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="iO6-UY-VZy"/>
             </constraints>
@@ -74,4 +88,7 @@
             <point key="canvasLocation" x="34.5" y="131.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="favEmpty.png" width="230" height="219"/>
+    </resources>
 </document>

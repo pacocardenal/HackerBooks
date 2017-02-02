@@ -20,6 +20,7 @@ class Book {
     let tags        : [String]?
     let urlImage    : URL
     let urlPdf      : URL
+    var favorite    : Bool = false
     
     // MARK: - Computed properties
     
@@ -44,6 +45,13 @@ class Book {
     func proxyForComparison() -> String {
         
         return proxyForEquality()
+        
+    }
+    
+    // MARK: - Utils
+    func changeFavorite() {
+        
+        self.favorite = !self.favorite
         
     }
     

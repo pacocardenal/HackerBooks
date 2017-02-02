@@ -20,7 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var books = [Book]()
         
+        
+        
         do {
+            if (!isJsonDownloaded()) {
+                try downloadAndSaveJSONFile()
+            }
             let json = try loadFromLocalFile(filename: "books_readable")
             
             for dict in json {

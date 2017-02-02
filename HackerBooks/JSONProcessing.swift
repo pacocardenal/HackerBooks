@@ -18,6 +18,8 @@ import Foundation
  },
  */
 
+let kKeyJsonDownloadedUserDefaults: String = "JSONDownloaded"
+
 // MARK: - Aliases
 typealias JSONObject        = AnyObject
 typealias JSONDictionary    = [String : JSONObject]
@@ -47,39 +49,39 @@ func decode(book json: JSONDictionary) throws -> Book {
     var tags = Array(tagSet)
     tags = tags.sorted()
     
-//    var tags = BookTags()
-//    if let tagsString = json["tags"] as? String {
-//
-//        let tagsArray = tagsString.components(separatedBy: ",")
-//        for tag in tagsArray {
-//            tags.append(TagName.by(name: tag))
-//        }
-//        
-//    } else {
-//        tags = [TagName.other]
-//    }
-
+    //    var tags = BookTags()
+    //    if let tagsString = json["tags"] as? String {
+    //
+    //        let tagsArray = tagsString.components(separatedBy: ",")
+    //        for tag in tagsArray {
+    //            tags.append(TagName.by(name: tag))
+    //        }
+    //
+    //    } else {
+    //        tags = [TagName.other]
+    //    }
     
-//    let tagsString = json["tags"] as? String
-//    let tags2 = tagsString?.components(separatedBy: ",")
-//    
-//    var convertedTag = BookTags()
-//    
-//    for tag in tags2! {
-//        convertedTag.append(TagName.by(name: tag))
-//    }
-//    
-        var authors = [String]()
-        if let authorsString = json["authors"] as? String {
     
-            let authorsArray = authorsString.components(separatedBy: ", ")
-            for author in authorsArray {
-                authors.append(author)
-            }
-    
-        } else {
-            authors = []
+    //    let tagsString = json["tags"] as? String
+    //    let tags2 = tagsString?.components(separatedBy: ",")
+    //
+    //    var convertedTag = BookTags()
+    //
+    //    for tag in tags2! {
+    //        convertedTag.append(TagName.by(name: tag))
+    //    }
+    //
+    var authors = [String]()
+    if let authorsString = json["authors"] as? String {
+        
+        let authorsArray = authorsString.components(separatedBy: ", ")
+        for author in authorsArray {
+            authors.append(author)
         }
+        
+    } else {
+        authors = []
+    }
     
     if let title = json["title"] as? String {
         print("Title: \(title) \nAuthors: \(authors.joined(separator: ", ")) \r\nTags: \(tags.joined(separator: ", ")) \nURLImage: \(urlImage) \nURLPdf: \(urlPdf)\n\n")
@@ -103,7 +105,12 @@ func decode(book json: JSONDictionary?) throws -> Book {
 // MARK: - Loading
 func loadFromLocalFile(filename name: String, bundle : Bundle = Bundle.main) throws -> JSONArray {
     
-    if let url = bundle.url(forResource: name, withExtension: "json"), let data = try? Data(contentsOf: url), let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray, let array = maybeArray {
+    let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let path = sourcePaths[0]
+    let file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
+    
+    //    if let url = bundle.url(forResource: name, withExtension: "json"), let data = try? Data(contentsOf: url), let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray, let array = maybeArray {
+    if let data = try? Data(contentsOf: file), let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray, let array = maybeArray {
         
         return array
         
@@ -112,3 +119,42 @@ func loadFromLocalFile(filename name: String, bundle : Bundle = Bundle.main) thr
     }
     
 }
+
+func downloadAndSaveJSONFile() throws {
+    
+    //Descargamos los datos de Internet
+    
+    let url = "https://t.co/K9ziV0z3SJ"
+    let json = try? Data(contentsOf: URL(string: url)!)
+    guard let downloadedData = json else {
+        throw HackerBooksError.filePointedByURLNotReachable
+    }
+    
+    // Guardamos los datos en un archivo
+    
+    let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let path = sourcePaths[0]
+    let file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
+    let fileManager = FileManager.default
+    fileManager.createFile(atPath: file.path, contents: downloadedData, attributes: nil)
+    
+    // Update NSUserDefaults key
+    saveJsonIntoDefaults()
+    
+}
+
+func saveJsonIntoDefaults() {
+    
+    let defaults = UserDefaults.standard
+    defaults.set(true, forKey: kKeyJsonDownloadedUserDefaults)
+    
+}
+
+func isJsonDownloaded() -> Bool {
+    
+    let defaults = UserDefaults.standard
+    
+    return (defaults.object(forKey: kKeyJsonDownloadedUserDefaults) != nil)
+    
+}
+

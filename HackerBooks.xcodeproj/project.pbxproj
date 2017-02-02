@@ -16,7 +16,6 @@
 		5CA8CB571E38AB63004748BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA8CB561E38AB63004748BE /* Assets.xcassets */; };
 		5CA8CB5A1E38AB63004748BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA8CB581E38AB63004748BE /* LaunchScreen.storyboard */; };
 		5CA8CB631E38ACDB004748BE /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA8CB621E38ACDB004748BE /* Book.swift */; };
-		5CBF09C71E3F908900381586 /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CBF09C61E3F908800381586 /* books_readable.json */; };
 		5CBF09CC1E3F95FB00381586 /* LibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF09CB1E3F95FB00381586 /* LibraryTableViewController.swift */; };
 		5CBF09CE1E3F981400381586 /* TagName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF09CD1E3F981400381586 /* TagName.swift */; };
 		E3ADBD161E43315000D5BBCA /* LibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ADBD141E43315000D5BBCA /* LibraryTableViewCell.swift */; };
@@ -44,7 +43,6 @@
 		5CA8CB591E38AB63004748BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CA8CB5B1E38AB63004748BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CA8CB621E38ACDB004748BE /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		5CBF09C61E3F908800381586 /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
 		5CBF09CB1E3F95FB00381586 /* LibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewController.swift; sourceTree = "<group>"; };
 		5CBF09CD1E3F981400381586 /* TagName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagName.swift; sourceTree = "<group>"; };
 		E3ADBD141E43315000D5BBCA /* LibraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewCell.swift; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 		5CBF09C31E3F902700381586 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				5CBF09C61E3F908800381586 /* books_readable.json */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -218,7 +215,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3ADBD261E43554600D5BBCA /* favFull.png in Resources */,
-				5CBF09C71E3F908900381586 /* books_readable.json in Resources */,
 				5CA8CB5A1E38AB63004748BE /* LaunchScreen.storyboard in Resources */,
 				E3ADBD1F1E43434D00D5BBCA /* BookViewController.xib in Resources */,
 				E3ADBD231E4349E400D5BBCA /* WebViewController.xib in Resources */,

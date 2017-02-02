@@ -13,5 +13,6 @@ enum HackerBooksError : Error {
     case wrongURLFormatForJSONResource
     case wrongJSONFormat
     case nilJSONObject
+    case filePointedByURLNotReachable
     
 }

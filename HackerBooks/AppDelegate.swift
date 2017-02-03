@@ -42,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let model = Library(books: books)
         
+        downloadImages(model: model)
+        
         let lVC = LibraryTableViewController(model: model)
         let lNav = UINavigationController(rootViewController: lVC)
         

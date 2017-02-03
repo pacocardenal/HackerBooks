@@ -104,6 +104,7 @@ class LibraryTableViewController: UITableViewController {
         //cell?.textLabel?.text = book.title
         cell.bookTitleLabel.text = book.title
         cell.bookAuthorsLabel.text = book.authors?.joined(separator: ", ")
+        cell.bookCoverImageView.image = loadTableCellImage(withFileName: book.urlImage.lastPathComponent)
 //        let data = try? Data(contentsOf: book.urlImage) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
 //        if let imageData = data {
 //            cell.bookCoverImageView.image = UIImage(data: imageData)
@@ -181,6 +182,25 @@ class LibraryTableViewController: UITableViewController {
             }
         }
         
+    }
+    
+    func loadTableCellImage(withFileName name : String) -> UIImage {
+        
+        let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let path = sourcePaths[0]
+        let file: URL = URL(fileURLWithPath: name, relativeTo: path)
+
+        do {
+            guard let image = UIImage.init(data: try Data.init(contentsOf: file)) else {
+                return UIImage(named: "defaultBookCover.png")!
+            }
+            return image
+            
+        } catch {
+            print ("Error")
+        }
+        
+        return UIImage(named: "defaultBookCover.png")!
     }
 
 }

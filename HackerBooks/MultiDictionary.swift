@@ -80,6 +80,19 @@ struct MultiDictionary<Key : Hashable, Value : Hashable>{
     var buckets : LazyMapCollection<Dictionary<Key, Bucket>,Bucket> {
         return _dict.values
     }
+    
+    public
+    var bucketsUnique : Bucket {
+        
+        var tally = Bucket()
+        
+        for bucket in _dict.values{
+            tally = tally.union(bucket)
+        }
+        
+        return tally
+        
+    }
     // Takes a key and returns an optional Bucket. If the key is not present,
     // returns .None.
     // The setter takes a Bucket and adds its contents to the existing Bucket

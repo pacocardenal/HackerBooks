@@ -158,3 +158,53 @@ func isJsonDownloaded() -> Bool {
     
 }
 
+func downloadImages(model: Library) {
+    
+    for book in model.dict.bucketsUnique {
+        
+        print("Image to download: \(book.urlImage.absoluteString)")
+        do {
+            if(checkImageDownloaded(withImage: book.urlImage.lastPathComponent)) == false {
+                try downloadImage(fromUrl: book.urlImage)
+            }
+            
+        } catch {
+            print("Error")
+        }
+        
+    }
+    
+}
+
+func downloadImage(fromUrl url : URL) throws {
+    
+    //Descargamos los datos de Internet
+    
+    let image = try? Data(contentsOf: url)
+    guard let downloadedData = image else {
+        throw HackerBooksError.filePointedByURLNotReachable
+    }
+    
+    // Guardamos los datos en un archivo
+    
+    let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let path = sourcePaths[0]
+    let file: URL = URL(fileURLWithPath: url.lastPathComponent, relativeTo: path)
+    let fileManager = FileManager.default
+    fileManager.createFile(atPath: file.path, contents: downloadedData, attributes: nil)
+    
+}
+
+func checkImageDownloaded(withImage name : String) -> Bool {
+    
+    let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+    let url = NSURL(fileURLWithPath: path)
+    let filePath = url.appendingPathComponent(name)?.path
+    let fileManager = FileManager.default
+    if fileManager.fileExists(atPath: filePath!) {
+        return true
+    } else {
+        return false
+    }
+    
+}

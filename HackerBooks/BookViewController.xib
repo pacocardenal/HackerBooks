@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dEm-E2-aMP" userLabel="Root Stack View">
-                    <rect key="frame" x="8" y="64" width="359" height="595"/>
+                    <rect key="frame" x="8" y="8" width="359" height="651"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G5s-s3-mdV">
                             <rect key="frame" x="0.0" y="0.0" width="359" height="375"/>
@@ -55,7 +55,7 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OA-YR-SfK">
-                            <rect key="frame" x="142.5" y="459" width="74" height="136"/>
+                            <rect key="frame" x="142.5" y="459" width="74" height="192"/>
                             <state key="normal" title="Read Book"/>
                             <connections>
                                 <action selector="readBook:" destination="-1" eventType="touchUpInside" id="inU-p6-M2o"/>
@@ -77,14 +77,14 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="dEm-E2-aMP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="56" id="JZ4-zv-Acx"/>
+                <constraint firstItem="dEm-E2-aMP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="JZ4-zv-Acx"/>
                 <constraint firstItem="dEm-E2-aMP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="O2f-yA-bVz"/>
                 <constraint firstItem="bPk-8S-sL0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="64" id="Yvd-UG-ahT"/>
                 <constraint firstAttribute="trailingMargin" secondItem="bPk-8S-sL0" secondAttribute="trailing" constant="8" id="axP-9g-s0Y"/>
                 <constraint firstAttribute="bottomMargin" secondItem="dEm-E2-aMP" secondAttribute="bottom" id="hbN-og-ZnZ"/>
                 <constraint firstItem="dEm-E2-aMP" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="iO6-UY-VZy"/>
             </constraints>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <nil key="simulatedTopBarMetrics"/>
             <point key="canvasLocation" x="34.5" y="131.5"/>
         </view>
     </objects>

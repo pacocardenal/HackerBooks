@@ -32,6 +32,7 @@ class BookViewController: UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.edgesForExtendedLayout = []
         syncViewWithModel()
     }
     
@@ -63,8 +64,8 @@ class BookViewController: UIViewController {
     
     // MARK: - Utils
     func syncViewWithModel() {
-        //self.bookCoverImageView.image = UIImage(data: try! Data(contentsOf: model.urlImage))
-        self.bookCoverImageView.image = UIImage(contentsOfFile: "defaultBookCover.png")
+        self.bookCoverImageView.image = loadCoverImage(withFileName: model.urlImage.lastPathComponent)
+        //self.bookCoverImageView.image = UIImage(contentsOfFile: "defaultBookCover.png")
         self.bookTitleLabel.text = model.title
         self.bookAuthorsLabel.text = model.authors?.joined(separator: ", ")
         self.bookTagsLabel.text = model.tags?.joined(separator: ", ")
@@ -124,5 +125,35 @@ class BookViewController: UIViewController {
         return array.contains(String(book.hashValue))
         
     }
+    
+    func loadCoverImage(withFileName name : String) -> UIImage {
+        
+        let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let path = sourcePaths[0]
+        let file: URL = URL(fileURLWithPath: name, relativeTo: path)
+        
+        do {
+            guard let image = UIImage.init(data: try Data.init(contentsOf: file)) else {
+                return UIImage(named: "defaultBookCover.png")!
+            }
+            return image
+            
+        } catch {
+            print ("Error")
+        }
+        
+        return UIImage(named: "defaultBookCover.png")!
+    }
 
+}
+
+// MARK: - Protocols
+
+extension BookViewController : LibraryTableViewControllerDelegate {
+    
+    func libraryTableViewController(_ uVC: LibraryTableViewController, didSelectBook book: Book) {
+        self.model = book
+        syncViewWithModel()
+    }
+    
 }

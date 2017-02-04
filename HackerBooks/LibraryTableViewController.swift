@@ -11,10 +11,13 @@ import UIKit
 class LibraryTableViewController: UITableViewController {
 
     // MARK: - Constants
+    static let notificationName = Notification.Name(rawValue: "BookDidChange")
+    static let bookKey = Notification.Name(rawValue: "BookKey")
     
     // MARK: - Properties
     let model: Library
     var favorites: Set<Book> = Set()
+    weak var delegate: LibraryTableViewControllerDelegate? = nil
     
     // MARK: - Initialization
     init(model: Library) {
@@ -30,6 +33,7 @@ class LibraryTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.edgesForExtendedLayout = []
         tableView.register(UINib.init(nibName: "LibraryTableViewCell", bundle: nil), forCellReuseIdentifier: "LibraryTableViewCell")
         registerForNotifications()
         loadFavorites()
@@ -48,10 +52,14 @@ class LibraryTableViewController: UITableViewController {
             book = model.book(atIndex: indexPath.row, forTag: getTag(forSection: indexPath.section))
         }
         
-        //        let charVC = CharacterViewController(model: character)
-        //        self.navigationController?.pushViewController(charVC, animated: true)
-        let bookVC = BookViewController(model: book)
-        self.navigationController?.pushViewController(bookVC, animated: true)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            let bookVC = BookViewController(model: book)
+            self.navigationController?.pushViewController(bookVC, animated: true)
+        } else {
+            self.delegate?.libraryTableViewController(self, didSelectBook: book)
+            notify(bookChanged: book)
+        }
+        
     }
 
     // MARK: - Table view data source
@@ -203,4 +211,25 @@ class LibraryTableViewController: UITableViewController {
         return UIImage(named: "defaultBookCover.png")!
     }
 
+}
+
+// MARK: - LibraryTableViewControllerDelegate
+protocol LibraryTableViewControllerDelegate : class {
+    
+    func libraryTableViewController(_ uVC: LibraryTableViewController, didSelectBook book: Book)
+    
+}
+
+// MARK: - Notifications
+extension LibraryTableViewController {
+    
+    func notify(bookChanged book : Book) {
+        
+        let nc =  NotificationCenter.default
+        let notification = Notification(name: LibraryTableViewController.notificationName, object: self, userInfo: [LibraryTableViewController.bookKey : book])
+        
+        nc.post(notification)
+        
+    }
+    
 }

@@ -96,7 +96,11 @@ class Library {
     func tagName(_ tagNumber : Int) -> String {
         var keysArray = Array(dict.keys)
         keysArray = keysArray.sorted()
-        return keysArray[tagNumber - 1]
+        if tagNumber > 0 {
+            return keysArray[tagNumber - 1]
+        } else {
+            return keysArray[0]
+        }
     }
     
     func checkFavoriteFromUserDefaults(book: Book) -> Bool {

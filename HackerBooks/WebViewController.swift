@@ -32,6 +32,20 @@ class WebViewController: UIViewController {
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        subscribe()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        unsubscribe()
+        
+    }
+    
     // MARK: - Utils
     func loadPdfWebView() {
         
@@ -86,4 +100,30 @@ class WebViewController: UIViewController {
         }
         
     }
+}
+
+extension WebViewController {
+    
+    func subscribe() {
+        
+        let nc = NotificationCenter.default
+        nc.addObserver(forName: LibraryTableViewController.notificationName, object: nil, queue: OperationQueue.main) { (note : Notification) in
+            
+            let userInfo = note.userInfo
+            let book = userInfo?[LibraryTableViewController.bookKey]
+            
+            self.model = book as! Book
+            self.loadPdfWebView()
+            
+        }
+        
+    }
+    
+    func unsubscribe() {
+        
+        let nc = NotificationCenter.default
+        nc.removeObserver(self)
+        
+    }
+    
 }

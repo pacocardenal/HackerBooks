@@ -47,8 +47,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let lVC = LibraryTableViewController(model: model)
         let lNav = UINavigationController(rootViewController: lVC)
         
-        window?.rootViewController = lNav
+        let bookVC = BookViewController(model: model.book(atIndex: 0, forTag: model.tagName(0)))
+        let bNav = UINavigationController(rootViewController: bookVC)
+        
+        let splitVC = UISplitViewController()
+        splitVC.viewControllers = [lNav, bNav]
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            lVC.delegate = bookVC
+            window?.rootViewController = splitVC
+        } else {
+            window?.rootViewController = lNav
+        }
+        
         window?.makeKeyAndVisible()
+        
+//        let model = StarWarsUniverse.init(characters: chars)
+//        
+//        let uVC = UniverseTableViewController.init(model: model)
+//        let uNav = UINavigationController.init(rootViewController: uVC)
+//        
+//        let charVC = CharacterViewController(model: model.character(atIndex: 0, forAffiliation: StarWarsAffiliation.galacticEmpire))
+//        let cNav = UINavigationController(rootViewController: charVC)
+//        
+//        // Asignamos delegados
+//        uVC.delegate = charVC
+//        
+//        let splitVC = UISplitViewController()
+//        splitVC.viewControllers = [uNav, cNav]
+//        
+//        window?.rootViewController = splitVC
+//        window?.makeKeyAndVisible()
         
         return true
     }

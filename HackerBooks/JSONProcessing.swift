@@ -49,28 +49,6 @@ func decode(book json: JSONDictionary) throws -> Book {
     var tags = Array(tagSet)
     tags = tags.sorted()
     
-    //    var tags = BookTags()
-    //    if let tagsString = json["tags"] as? String {
-    //
-    //        let tagsArray = tagsString.components(separatedBy: ",")
-    //        for tag in tagsArray {
-    //            tags.append(TagName.by(name: tag))
-    //        }
-    //
-    //    } else {
-    //        tags = [TagName.other]
-    //    }
-    
-    
-    //    let tagsString = json["tags"] as? String
-    //    let tags2 = tagsString?.components(separatedBy: ",")
-    //
-    //    var convertedTag = BookTags()
-    //
-    //    for tag in tags2! {
-    //        convertedTag.append(TagName.by(name: tag))
-    //    }
-    //
     var authors = [String]()
     if let authorsString = json["authors"] as? String {
         
@@ -84,7 +62,6 @@ func decode(book json: JSONDictionary) throws -> Book {
     }
     
     if let title = json["title"] as? String {
-        print("Title: \(title) \nAuthors: \(authors.joined(separator: ", ")) \r\nTags: \(tags.joined(separator: ", ")) \nURLImage: \(urlImage) \nURLPdf: \(urlPdf)\n\n")
         return Book(title: title, authors: authors, tags: tags, urlImage: urlImage, urlPdf: urlPdf)
     } else {
         throw HackerBooksError.wrongJSONFormat
@@ -107,9 +84,8 @@ func loadFromLocalFile(filename name: String, bundle : Bundle = Bundle.main) thr
     
     let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     let path = sourcePaths[0]
-    let file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
+    let file: URL = URL(fileURLWithPath: "K9ziV0z3SJ", relativeTo: path)
     
-    //    if let url = bundle.url(forResource: name, withExtension: "json"), let data = try? Data(contentsOf: url), let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray, let array = maybeArray {
     if let data = try? Data(contentsOf: file), let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray, let array = maybeArray {
         
         return array
@@ -122,23 +98,19 @@ func loadFromLocalFile(filename name: String, bundle : Bundle = Bundle.main) thr
 
 func downloadAndSaveJSONFile() throws {
     
-    //Descargamos los datos de Internet
+    let url: URL = URL.init(string: "https://t.co/K9ziV0z3SJ")!
+//    let json = try? Data(contentsOf: URL(string: url)!)
+//    guard let downloadedData = json else {
+//        throw HackerBooksError.filePointedByURLNotReachable
+//    }
+//    
+//    let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//    let path = sourcePaths[0]
+//    let file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
+//    let fileManager = FileManager.default
+//    fileManager.createFile(atPath: file.path, contents: downloadedData, attributes: nil)
+    try Bundle.main.downloadFileToDocumentDirectory(fromUrl: url)
     
-    let url = "https://t.co/K9ziV0z3SJ"
-    let json = try? Data(contentsOf: URL(string: url)!)
-    guard let downloadedData = json else {
-        throw HackerBooksError.filePointedByURLNotReachable
-    }
-    
-    // Guardamos los datos en un archivo
-    
-    let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    let path = sourcePaths[0]
-    let file: URL = URL(fileURLWithPath: "books_readable.json", relativeTo: path)
-    let fileManager = FileManager.default
-    fileManager.createFile(atPath: file.path, contents: downloadedData, attributes: nil)
-    
-    // Update NSUserDefaults key
     saveJsonIntoDefaults()
     
 }
@@ -146,7 +118,7 @@ func downloadAndSaveJSONFile() throws {
 func saveJsonIntoDefaults() {
     
     let defaults = UserDefaults.standard
-    defaults.set(true, forKey: kKeyJsonDownloadedUserDefaults)
+    defaults.set(true, forKey: "JSONDownloaded")
     
 }
 
@@ -154,22 +126,21 @@ func isJsonDownloaded() -> Bool {
     
     let defaults = UserDefaults.standard
     
-    return (defaults.object(forKey: kKeyJsonDownloadedUserDefaults) != nil)
+    return (defaults.object(forKey: "JSONDownloaded") != nil)
     
 }
 
-func downloadImages(model: Library) {
+func downloadImages(model: Library) throws {
     
     for book in model.dict.bucketsUnique {
         
-        print("Image to download: \(book.urlImage.absoluteString)")
         do {
             if(checkImageDownloaded(withImage: book.urlImage.lastPathComponent)) == false {
                 try downloadImage(fromUrl: book.urlImage)
             }
             
         } catch {
-            print("Error")
+            throw HackerBooksError.wrongURLFormatForJSONResource
         }
         
     }
@@ -178,33 +149,32 @@ func downloadImages(model: Library) {
 
 func downloadImage(fromUrl url : URL) throws {
     
-    //Descargamos los datos de Internet
+//    let image = try? Data(contentsOf: url)
+//    guard let downloadedData = image else {
+//        throw HackerBooksError.filePointedByURLNotReachable
+//    }
+//    
+//    let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//    let path = sourcePaths[0]
+//    let file: URL = URL(fileURLWithPath: url.lastPathComponent, relativeTo: path)
+//    let fileManager = FileManager.default
+//    fileManager.createFile(atPath: file.path, contents: downloadedData, attributes: nil)
     
-    let image = try? Data(contentsOf: url)
-    guard let downloadedData = image else {
-        throw HackerBooksError.filePointedByURLNotReachable
-    }
-    
-    // Guardamos los datos en un archivo
-    
-    let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    let path = sourcePaths[0]
-    let file: URL = URL(fileURLWithPath: url.lastPathComponent, relativeTo: path)
-    let fileManager = FileManager.default
-    fileManager.createFile(atPath: file.path, contents: downloadedData, attributes: nil)
+    try Bundle.main.downloadFileToDocumentDirectory(fromUrl: url)
     
 }
 
 func checkImageDownloaded(withImage name : String) -> Bool {
     
-    let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-    let url = NSURL(fileURLWithPath: path)
-    let filePath = url.appendingPathComponent(name)?.path
-    let fileManager = FileManager.default
-    if fileManager.fileExists(atPath: filePath!) {
-        return true
-    } else {
-        return false
-    }
+//    let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+//    let url = NSURL(fileURLWithPath: path)
+//    let filePath = url.appendingPathComponent(name)?.path
+//    let fileManager = FileManager.default
+//    if fileManager.fileExists(atPath: filePath!) {
+//        return true
+//    } else {
+//        return false
+//    }
+    return Bundle.main.isFileDownloadedToDocumentDirectory(withName: name)
     
 }

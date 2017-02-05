@@ -2,7 +2,7 @@
 //  BookViewController.swift
 //  HackerBooks
 //
-//  Created by TalentoMobile on 2/2/17.
+//  Created by Paco Cardenal on 2/2/17.
 //  Copyright © 2017 Paco Cardenal. All rights reserved.
 //
 
@@ -18,7 +18,12 @@ class BookViewController: UIViewController {
     
     // MARK: - Properties
     var model: Book
+    
+    // MARK: - Constants
     static let kKeyFavoriteUserDefaults: String = "FavoriteBooks"
+    static let kKeyAddFavoriteNotification: String = "kNotificationAddFavorite"
+    static let kKeyDelFavoriteNotification: String = "kNotificationRemoveFavorite"
+    static let kKeyBookUserInfoNotification: String = "bookToUpdate"
     
     init(model: Book) {
         self.model = model
@@ -38,34 +43,30 @@ class BookViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func readBook(_ sender: Any) {
-        print("Read book: \(model.urlPdf)")
         
         let pdfVC = WebViewController(model: model)
         navigationController?.pushViewController(pdfVC, animated: true)
+        
     }
     
     @IBAction func markAsFavorite(_ sender: UIButton) {
         
-        // 1. Comprobar si ya es favorito
         if (model.favorite) {
             deleteFromDefaults(book: model)
             syncModelWithView(addingFavorite: false)
-            //favoriteButton.setImage(UIImage.init(named: "favEmpty.png"), for: .normal)
         } else {
             saveIntoDefaults(book: model)
             syncModelWithView(addingFavorite: true)
-            //favoriteButton.setImage(UIImage.init(named: "favFull.png"), for: .normal)
         }
         
         syncViewWithModel()
         
     }
     
-    
     // MARK: - Utils
     func syncViewWithModel() {
+        
         self.bookCoverImageView.image = loadCoverImage(withFileName: model.urlImage.lastPathComponent)
-        //self.bookCoverImageView.image = UIImage(contentsOfFile: "defaultBookCover.png")
         self.bookTitleLabel.text = model.title
         self.bookAuthorsLabel.text = model.authors?.joined(separator: ", ")
         self.bookTagsLabel.text = model.tags?.joined(separator: ", ")
@@ -75,6 +76,7 @@ class BookViewController: UIViewController {
         } else {
             favoriteButton.setImage(UIImage.init(named: "favEmpty.png"), for: .normal)
         }
+        
     }
     
     func syncModelWithView(addingFavorite fav: Bool) {
@@ -84,14 +86,14 @@ class BookViewController: UIViewController {
         model.changeFavorite()
         
         if fav == true {
-            notificationName = "kNotificationAddFavorite"
+            notificationName = BookViewController.kKeyAddFavoriteNotification
         } else {
-            notificationName = "kNotificationRemoveFavorite"
+            notificationName = BookViewController.kKeyDelFavoriteNotification
         }
         let nc = NotificationCenter.default
         nc.post(name:Notification.Name(rawValue: notificationName),
                 object: nil,
-                userInfo: ["bookToUpdate" : model])
+                userInfo: [BookViewController.kKeyBookUserInfoNotification : model])
         
     }
     
@@ -134,15 +136,16 @@ class BookViewController: UIViewController {
         
         do {
             guard let image = UIImage.init(data: try Data.init(contentsOf: file)) else {
-                return UIImage(named: "defaultBookCover.png")!
+                return UIImage(named: LibraryTableViewController.defaultCoverImage)!
             }
             return image
             
         } catch {
-            print ("Error")
+            print ("Error al cargar la imagen de portada")
         }
         
-        return UIImage(named: "defaultBookCover.png")!
+        return UIImage(named: LibraryTableViewController.defaultCoverImage)!
+        
     }
 
 }

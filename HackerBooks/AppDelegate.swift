@@ -12,6 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    static let jsonFileName: String = "K9ziV0z3SJ"
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -20,13 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var books = [Book]()
         
-        
-        
         do {
             if (!isJsonDownloaded()) {
                 try downloadAndSaveJSONFile()
             }
-            let json = try loadFromLocalFile(filename: "books_readable")
+            let json = try loadFromLocalFile(filename: AppDelegate.jsonFileName)
             
             for dict in json {
                 do {
@@ -42,7 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let model = Library(books: books)
         
-        downloadImages(model: model)
+        do {
+            try downloadImages(model: model)
+        } catch {
+            fatalError("Can't load images")
+        }
         
         let lVC = LibraryTableViewController(model: model)
         let lNav = UINavigationController(rootViewController: lVC)
@@ -61,23 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         window?.makeKeyAndVisible()
-        
-//        let model = StarWarsUniverse.init(characters: chars)
-//        
-//        let uVC = UniverseTableViewController.init(model: model)
-//        let uNav = UINavigationController.init(rootViewController: uVC)
-//        
-//        let charVC = CharacterViewController(model: model.character(atIndex: 0, forAffiliation: StarWarsAffiliation.galacticEmpire))
-//        let cNav = UINavigationController(rootViewController: charVC)
-//        
-//        // Asignamos delegados
-//        uVC.delegate = charVC
-//        
-//        let splitVC = UISplitViewController()
-//        splitVC.viewControllers = [uNav, cNav]
-//        
-//        window?.rootViewController = splitVC
-//        window?.makeKeyAndVisible()
         
         return true
     }

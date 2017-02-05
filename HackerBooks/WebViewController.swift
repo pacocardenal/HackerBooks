@@ -2,7 +2,7 @@
 //  WebViewController.swift
 //  HackerBooks
 //
-//  Created by TalentoMobile on 2/2/17.
+//  Created by Paco Cardenal on 2/2/17.
 //  Copyright © 2017 Paco Cardenal. All rights reserved.
 //
 
@@ -11,6 +11,7 @@ import UIKit
 class WebViewController: UIViewController {
 
     @IBOutlet weak var bookPdfWebView: UIWebView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     // MARK: - Properties
     var model: Book
@@ -28,6 +29,7 @@ class WebViewController: UIViewController {
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.bookPdfWebView.delegate = self
         loadPdfWebView()
 
     }
@@ -52,7 +54,11 @@ class WebViewController: UIViewController {
         //        let aData = NSData(contentsOf: model.urlPdf)
         do {
             if (checkPdfDownloaded(withPdf: model.urlPdf.lastPathComponent) == false) {
+                spinner.isHidden = false
+                spinner.startAnimating()
                 try downloadPdf(withURL: model.urlPdf)
+                spinner.stopAnimating()
+                spinner.isHidden = true
             }
             
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
@@ -70,38 +76,42 @@ class WebViewController: UIViewController {
     
     func downloadPdf(withURL url : URL) throws {
         
-        //Descargamos los datos de Internet
+//        //Descargamos los datos de Internet
+//        
+//        let pdf = try? Data(contentsOf: url)
+//        guard let downloadedData = pdf else {
+//            throw HackerBooksError.filePointedByURLNotReachable
+//        }
+//        
+//        // Guardamos los datos en un archivo
+//        
+//        let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        let path = sourcePaths[0]
+//        let file: URL = URL(fileURLWithPath: url.lastPathComponent, relativeTo: path)
+//        let fileManager = FileManager.default
+//        fileManager.createFile(atPath: file.path, contents: downloadedData, attributes: nil)
         
-        let pdf = try? Data(contentsOf: url)
-        guard let downloadedData = pdf else {
-            throw HackerBooksError.filePointedByURLNotReachable
-        }
-        
-        // Guardamos los datos en un archivo
-        
-        let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let path = sourcePaths[0]
-        let file: URL = URL(fileURLWithPath: url.lastPathComponent, relativeTo: path)
-        let fileManager = FileManager.default
-        fileManager.createFile(atPath: file.path, contents: downloadedData, attributes: nil)
+        try Bundle.main.downloadFileToDocumentDirectory(fromUrl: url)
         
     }
     
     func checkPdfDownloaded(withPdf name : String) -> Bool {
         
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let url = NSURL(fileURLWithPath: path)
-        let filePath = url.appendingPathComponent(name)?.path
-        let fileManager = FileManager.default
-        if fileManager.fileExists(atPath: filePath!) {
-            return true
-        } else {
-            return false
-        }
+//        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+//        let url = NSURL(fileURLWithPath: path)
+//        let filePath = url.appendingPathComponent(name)?.path
+//        let fileManager = FileManager.default
+//        if fileManager.fileExists(atPath: filePath!) {
+//            return true
+//        } else {
+//            return false
+//        }
+        return Bundle.main.isFileDownloadedToDocumentDirectory(withName: name)
         
     }
 }
 
+// MARK: - Notifications
 extension WebViewController {
     
     func subscribe() {
@@ -124,6 +134,21 @@ extension WebViewController {
         let nc = NotificationCenter.default
         nc.removeObserver(self)
         
+    }
+    
+}
+
+// MARK: - UIWebViewDelegate
+extension WebViewController: UIWebViewDelegate {
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        spinner.isHidden = false
+        spinner.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        spinner.stopAnimating()
+        spinner.isHidden = true
     }
     
 }

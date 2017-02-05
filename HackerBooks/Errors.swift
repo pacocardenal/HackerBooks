@@ -14,5 +14,6 @@ enum HackerBooksError : Error {
     case wrongJSONFormat
     case nilJSONObject
     case filePointedByURLNotReachable
+    case nilImageFile
     
 }

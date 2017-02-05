@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-//typealias BookTags = [TagName]
 typealias BookTags = MultiDictionary<String, String>
 
 class Book {
@@ -21,8 +20,6 @@ class Book {
     let urlImage    : URL
     let urlPdf      : URL
     var favorite    : Bool = false
-    
-    // MARK: - Computed properties
     
     // MARK: - Initialization
     init(title: String, authors: [String]?, tags: [String]?, urlImage: URL, urlPdf: URL) {
@@ -58,7 +55,7 @@ class Book {
 }
 
 // MARK: - Protocols
-// Equatable, Comparable, CustomStringConvertible
+// Equatable, Comparable, CustomStringConvertible, Hashable
 
 extension Book : Equatable {
     
@@ -97,7 +94,7 @@ extension Book : Hashable {
     public var hashValue: Int {
         
         get {
-            return title.hashValue // + (authors?.joined().hashValue)!
+            return title.hashValue
         }
     
     }

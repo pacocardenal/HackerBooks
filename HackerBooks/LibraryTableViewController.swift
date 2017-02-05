@@ -13,6 +13,10 @@ class LibraryTableViewController: UITableViewController {
     // MARK: - Constants
     static let notificationName = Notification.Name(rawValue: "BookDidChange")
     static let bookKey = Notification.Name(rawValue: "BookKey")
+    static let headerSectionFavorites = "Favorites"
+    static let bookCellId = "LibraryTableViewCell"
+    static let defaultCoverImage = "defaultBookCover.png"
+    static let customCellName = "LibraryTableViewCell"
     
     // MARK: - Properties
     let model: Library
@@ -34,14 +38,23 @@ class LibraryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
-        tableView.register(UINib.init(nibName: "LibraryTableViewCell", bundle: nil), forCellReuseIdentifier: "LibraryTableViewCell")
-        registerForNotifications()
+        tableView.register(UINib.init(nibName: LibraryTableViewController.customCellName, bundle: nil), forCellReuseIdentifier: LibraryTableViewController.customCellName)
         loadFavorites()
+        subscribe()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribe()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        unsubscribe()
     }
     
     // MARK: - Table view delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let book = model.character(atIndex: indexPath.row, forAffiliation: getAffiliation(forSection: indexPath.section))
         
         let book: Book
         if indexPath.section == 0 {
@@ -63,34 +76,31 @@ class LibraryTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return model.tagCount + 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        
         if section == 0 {
             return self.favorites.count
         } else {
             return model.bookCount(forTag: getTag(forSection: section))
         }
-        //        return model.bookCount(forTag: section)
+        
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         if (section == 0) {
-            return "Favorites"
+            return LibraryTableViewController.headerSectionFavorites
         } else {
             return model.tagName(section).capitalized
         }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        //let cellId = "BookCell"
-        let cellId = "LibraryTableViewCell"
         
         let book: Book
         
@@ -102,70 +112,17 @@ class LibraryTableViewController: UITableViewController {
             book = model.book(atIndex: indexPath.row, forTag: getTag(forSection: indexPath.section))
         }
         
-//        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! LibraryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: LibraryTableViewController.bookCellId) as! LibraryTableViewCell
         
-//        if (cell == nil) {
-//            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: cellId)
-//        }
-        
-        //cell?.textLabel?.text = book.title
         cell.bookTitleLabel.text = book.title
         cell.bookAuthorsLabel.text = book.authors?.joined(separator: ", ")
-        cell.bookCoverImageView.image = loadTableCellImage(withFileName: book.urlImage.lastPathComponent)
-//        let data = try? Data(contentsOf: book.urlImage) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-//        if let imageData = data {
-//            cell.bookCoverImageView.image = UIImage(data: imageData)
-//        }
+        do {
+            cell.bookCoverImageView.image = try loadTableCellImage(withFileName: book.urlImage.lastPathComponent)
+        } catch {
+            print ("Error al cargar la imagen")
+        }
         
         return cell
-        
-    }
-    
-    // MARK: - Notifications
-    func registerForNotifications() {
-
-        let nc = NotificationCenter.default
-        
-        nc.addObserver(forName:Notification.Name(rawValue:"kNotificationAddFavorite"),
-                       object:nil, queue:nil,
-                       using:bookAddedFavorite)
-        
-        nc.addObserver(forName:Notification.Name(rawValue:"kNotificationRemoveFavorite"),
-                       object:nil, queue:nil,
-                       using:bookRemovedFavorite)
-        
-    }
-    
-    func bookAddedFavorite(notification: Notification) {
-        
-        print("Catch notification")
-        
-        guard let userInfo = notification.userInfo,
-            let bookFav  = userInfo["bookToUpdate"] as? Book else {
-                print("No userInfo found in notification")
-                return
-        }
-        
-        print("Store \(bookFav) as favorite")
-        self.favorites.insert(bookFav)
-        tableView.reloadData()
-        
-    }
-    
-    func bookRemovedFavorite(notification: Notification) {
-        
-        print("Catch notification")
-        
-        guard let userInfo = notification.userInfo,
-            let bookFav  = userInfo["bookToUpdate"] as? Book else {
-                print("No userInfo found in notification")
-                return
-        }
-        
-        print("Remove \(bookFav) as favorite")
-        self.favorites.remove(bookFav)
-        tableView.reloadData()
         
     }
     
@@ -173,7 +130,7 @@ class LibraryTableViewController: UITableViewController {
     func getTag(forSection section : Int) -> String {
         
         if (section == 0) {
-            return "Favorites"
+            return LibraryTableViewController.headerSectionFavorites
         } else {
             return model.tagName(section)
         }
@@ -192,7 +149,7 @@ class LibraryTableViewController: UITableViewController {
         
     }
     
-    func loadTableCellImage(withFileName name : String) -> UIImage {
+    func loadTableCellImage(withFileName name : String) throws -> UIImage {
         
         let sourcePaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let path = sourcePaths[0]
@@ -200,15 +157,14 @@ class LibraryTableViewController: UITableViewController {
 
         do {
             guard let image = UIImage.init(data: try Data.init(contentsOf: file)) else {
-                return UIImage(named: "defaultBookCover.png")!
+                return UIImage(named: LibraryTableViewController.defaultCoverImage)!
             }
             return image
             
         } catch {
-            print ("Error")
+            throw HackerBooksError.wrongURLFormatForJSONResource
         }
         
-        return UIImage(named: "defaultBookCover.png")!
     }
 
 }
@@ -220,7 +176,7 @@ protocol LibraryTableViewControllerDelegate : class {
     
 }
 
-// MARK: - Notifications
+// MARK: - Extensions
 extension LibraryTableViewController {
     
     func notify(bookChanged book : Book) {
@@ -229,6 +185,45 @@ extension LibraryTableViewController {
         let notification = Notification(name: LibraryTableViewController.notificationName, object: self, userInfo: [LibraryTableViewController.bookKey : book])
         
         nc.post(notification)
+        
+    }
+    
+    func subscribe() {
+        
+        let nc = NotificationCenter.default
+        
+        nc.addObserver(forName: NSNotification.Name(rawValue: BookViewController.kKeyAddFavoriteNotification), object: nil, queue: OperationQueue.main) { (note : Notification) in
+            
+            guard let userInfo = note.userInfo,
+                let bookFav  = userInfo[BookViewController.kKeyBookUserInfoNotification] as? Book else {
+                    print("No userInfo found in notification")
+                    return
+            }
+            
+            self.favorites.insert(bookFav)
+            self.tableView.reloadData()
+            
+        }
+        
+        nc.addObserver(forName: NSNotification.Name(rawValue: BookViewController.kKeyDelFavoriteNotification), object: nil, queue: OperationQueue.main) { (note : Notification) in
+            
+            guard let userInfo = note.userInfo,
+                let bookFav  = userInfo[BookViewController.kKeyBookUserInfoNotification] as? Book else {
+                    print("No userInfo found in notification")
+                    return
+            }
+            
+            self.favorites.remove(bookFav)
+            self.tableView.reloadData()
+            
+        }
+        
+    }
+    
+    func unsubscribe() {
+        
+        let nc = NotificationCenter.default
+        nc.removeObserver(self)
         
     }
     

@@ -13,7 +13,6 @@ class Library {
     
     // MARK: - Utility types
     typealias BooksArray = [Book]
-    //typealias BooksDictionary = [TagName : BooksArray]
     typealias BooksDictionary = MultiDictionary<String, Book>
     
     // MARK: - Properties
@@ -24,45 +23,22 @@ class Library {
     // MARK: - Initialization
     init(books : BooksArray) {
         
-        //dict = makeEmptyTags()
-        
-        // 1. Todas las etiquetas
         for someBook in books {
             for tag in someBook.tags! {
                 Library.allTags.insert(tag)
             }
         }
         
-        // 2. Asignar libros con etiqueta
         for aTag in Library.allTags {
-            print(aTag)
             var setBooks = Set<Book>()
             for aBook in books {
                 if (aBook.tags?.contains(aTag))! {
                     aBook.favorite = checkFavoriteFromUserDefaults(book: aBook)
                     setBooks.insert(aBook)
-                    // it exists, do something
                 }
-                
-//                dict[aTag]?.insert(aBook)
             }
             dict[aTag] = setBooks
-            print(dict[aTag]!)
         }
-        
-//        for someBook in books {
-//            for tag in someBook.tags! {
-////                dict[tag]?.append(someBook)
-////                Library.allTags.insert(tag)
-//                dict[tag] = someBook
-////                
-////                BooksDictionary[tag] = someBook.title
-//            }
-//        }
-        
-//        for (tag, book) in dict {
-//            dict[tag] = book.sorted()
-//        }
         
     }
     
@@ -113,19 +89,5 @@ class Library {
         return array.contains(String(book.hashValue))
         
     }
-    
-//    fileprivate func makeEmptyTags() -> BooksDictionary {
-//        
-//        var d = BooksDictionary()
-//        
-//        d[TagName.git] = BooksArray()
-//        d[TagName.javascript] = BooksArray()
-//        d[TagName.programming] = BooksArray()
-//        d[TagName.versionControl] = BooksArray()
-//        d[TagName.other] = BooksArray()
-//        
-//        return d
-//        
-//    }
     
 }
